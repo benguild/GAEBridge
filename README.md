@@ -1,8 +1,8 @@
 # GAEBridge
 A set of handy tools for using Google App Engine with Golang (Go).
 
-1) "context" provides context management.
-2) "debuglogger" presents a standard logging interface, wrapping Google App Engine's provided methods.
+* "context" provides context management.
+* "debuglogger" presents a standard logging interface, wrapping Google App Engine's provided methods.
 
 ## Example
 
