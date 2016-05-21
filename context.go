@@ -15,7 +15,8 @@ var (
 
 func Context(r *http.Request) *context.Context {
 	if (ctx==nil) {
-		ctx = &appengine.NewContext(r);
+		newContext := appengine.NewContext(r);
+		ctx = &newContext;
 
 	}
 
