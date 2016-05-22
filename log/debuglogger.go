@@ -18,7 +18,7 @@ import (
 	"golang.org/x/net/context"
 	"google.golang.org/appengine"
 	"google.golang.org/appengine/log"
-	"log"
+	l "log"
 )
 
 type DebugLogWriter struct {
@@ -33,6 +33,6 @@ func (w DebugLogWriter) Print(v ...interface{}) {
 	if !appengine.IsDevAppServer() {
 		log.Debugf(*w.Context, fmt.Sprint(v))
 	} else {
-		log.Print(v)
+		l.Print(v)
 	}
 }
