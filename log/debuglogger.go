@@ -21,15 +21,15 @@ import (
 	l "log"
 )
 
-type DebugLogWriter struct {
+type DebugLogger struct {
 	context *context.Context
 }
 
-func NewDebugLogWriter(ctx *context.Context) *DebugLogWriter {
-	return &DebugLogWriter{context: ctx}
+func NewDebugLogger(ctx *context.Context) *DebugLogger {
+	return &DebugLogger{context: ctx}
 }
 
-func (w DebugLogWriter) Print(v ...interface{}) {
+func (w DebugLogger) Print(v ...interface{}) {
 	if !appengine.IsDevAppServer() {
 		log.Debugf(*w.Context, fmt.Sprint(v))
 	} else {
