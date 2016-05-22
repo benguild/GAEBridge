@@ -1,3 +1,5 @@
+// +build appengine
+
 package gaebridge
 
 // Provides standard debug logging functionality by wrapping Google App Engine (GAE)'s logging methods.

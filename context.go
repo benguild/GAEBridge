@@ -1,3 +1,5 @@
+// +build appengine
+
 package gaebridge
 
 // Only creates and returns a single Google App Engine (GAE) context, once per request.
