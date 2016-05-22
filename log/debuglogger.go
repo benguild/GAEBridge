@@ -31,7 +31,7 @@ func NewDebugLogger(ctx *context.Context) *DebugLogger {
 
 func (w DebugLogger) Print(v ...interface{}) {
 	if !appengine.IsDevAppServer() {
-		log.Debugf(*w.Context, fmt.Sprint(v))
+		log.Debugf(*w.context, fmt.Sprint(v))
 	} else {
 		l.Print(v)
 	}
