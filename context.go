@@ -5,23 +5,38 @@ package gaebridge
 // Only creates and returns a single Google App Engine (GAE) context, once per request.
 
 import (
-	"google.golang.org/appengine"
 	"golang.org/x/net/context"
+	"google.golang.org/appengine"
 	"net/http"
+	"sync"
 )
 
 var (
-	ctx *context.Context
-
+	mutex    sync.RWMutex
+	contexts = make(map[*http.Request]*context.Context)
 )
 
 func Context(r *http.Request) *context.Context {
-	if (ctx==nil) {
-		newContext := appengine.NewContext(r);
-		ctx = &newContext;
 
+	mutex.RLock()
+	if contexts[r] == nil { //Currently doesn't exist so make a new context
+		mutex.RUnlock()
+		mutex.Lock()
+		newContext := appengine.NewContext(r)
+		contexts[r] = &newContext
+		mutex.Unlock()
+		return &newContext
+	} else {
+		value := contexts[r]
+		mutex.RUnlock()
+		return value
 	}
+}
 
-	return ctx;
-
+// Must be called directly prior to end of request cycle.
+// This is to prevent a memory leak.
+func CleanUp(r *http.Request) {
+	mutex.Lock()
+	delete(contexts, r)
+	mutex.Unlock()
 }
