@@ -10,7 +10,22 @@ Provide a standard debug logging interface to [GORM](https://github.com/jinzhu/g
 
 ```
 db.LogMode(true);
-db.SetLogger(log.New(gaebridge.DebugLogWriter{ gaebridge.Context(r) }, "", log.LstdFlags));
+db.SetLogger(NewDebugLogger(Context(c.Request)));
+```
+
+**Important!** Be sure to clean up the singleton instance of the context when finished:
+
+```
+defer Context.CleanUp(c.Request); // You can call this code from custom middleware, for example.
+```
+
+Due to the common names of the packages, you may wish to alias them:
+
+```
+import (
+  GAEBridgeContext "github.com/benguild/GAEBridge/context"
+  GAEBridgeLog "github.com/benguild/GAEBridge/log"
+)
 ```
 
 ## Author
