@@ -31,7 +31,7 @@ func Context(r *http.Request) *context.Context {
 	mutex.Lock()
 	defer mutex.Unlock()
 
-	if contexts[r] == nil {
+	if contexts[r] == nil { // (Second check) Currently doesn't exist, so make a new context!
 		contexts[r] = &newContext
 		return &newContext
 	} else {
