@@ -12,31 +12,38 @@ import (
 )
 
 var (
-	mutex    sync.RWMutex
+	mutex sync.RWMutex
 	contexts = make(map[*http.Request]*context.Context)
+
 )
 
 func Context(r *http.Request) *context.Context {
+	mutex.RLock();
 
-	mutex.RLock()
-	if contexts[r] == nil { //Currently doesn't exist so make a new context
-		mutex.RUnlock()
-		mutex.Lock()
-		newContext := appengine.NewContext(r)
-		contexts[r] = &newContext
-		mutex.Unlock()
-		return &newContext
+	if contexts[r] == nil { // Currently doesn't exist, so make a new context!
+		mutex.RUnlock();
+
+		mutex.Lock();
+		newContext := appengine.NewContext(r);
+		contexts[r] = &newContext;
+		mutex.Unlock();
+		////
+
+		return &newContext;
+
 	} else {
-		value := contexts[r]
-		mutex.RUnlock()
-		return value
+		value := contexts[r];
+		mutex.RUnlock();
+
+		return value;
+
 	}
+
 }
 
-// Must be called directly prior to end of request cycle.
-// This is to prevent a memory leak.
-func CleanUp(r *http.Request) {
-	mutex.Lock()
-	delete(contexts, r)
-	mutex.Unlock()
+func CleanUp(r *http.Request) { // Must be called directly prior to end of request cycle to prevent a memory leak.
+	mutex.Lock();
+	delete(contexts, r);
+	mutex.Unlock();
+
 }
