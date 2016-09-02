@@ -1,7 +1,7 @@
 # GAEBridge
 A set of handy tools for using [Google App Engine](https://cloud.google.com/appengine/docs/go/) with [Golang](https://golang.org/) (Go).
 
-~~* `context.go` provides context management.~~
+* ~~`context.go` provides context management.~~
   * This file has been omitted in v0.2.0 because of superior Golang design patterns, and therefore it's unnecessary.
 * `debuglogger.go` presents a standard logging interface, wrapping Google App Engine's provided methods.
 
