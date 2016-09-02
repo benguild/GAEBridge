@@ -9,7 +9,7 @@ For example, this can be used to log GORM's database queries:
 
 ```
 db.LogMode(true)
-db.SetLogger(log.NewDebugLogger(context.Context(r)))
+db.SetLogger(log.NewDebugLogger(appengine.NewContext(request)))
 ```
 */
 
