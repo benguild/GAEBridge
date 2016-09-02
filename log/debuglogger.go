@@ -23,16 +23,21 @@ import (
 
 type DebugLogger struct {
 	context *context.Context
+
 }
 
 func NewDebugLogger(ctx *context.Context) *DebugLogger {
-	return &DebugLogger{context: ctx}
+	return &DebugLogger{ context: ctx };
+
 }
 
 func (w DebugLogger) Print(v ...interface{}) {
 	if !appengine.IsDevAppServer() {
-		log.Debugf(*w.context, fmt.Sprint(v))
+		log.Debugf(*w.context, fmt.Sprint(v));
+
 	} else {
-		l.Print(v)
+		l.Print(v);
+
 	}
+
 }
