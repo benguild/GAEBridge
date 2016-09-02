@@ -1,7 +1,8 @@
 # GAEBridge
 A set of handy tools for using [Google App Engine](https://cloud.google.com/appengine/docs/go/) with [Golang](https://golang.org/) (Go).
 
-* `context.go` provides context management.
+~~* `context.go` provides context management.~~
+  * This file has been omitted in v0.2.0 because of superior Golang design patterns, and therefore it's unnecessary.
 * `debuglogger.go` presents a standard logging interface, wrapping Google App Engine's provided methods.
 
 ## Example
@@ -10,20 +11,13 @@ Provide a standard debug logging interface to [GORM](https://github.com/jinzhu/g
 
 ```
 db.LogMode(true);
-db.SetLogger(NewDebugLogger(Context(c.Request)));
-```
-
-**Important!** Be sure to clean up the singleton instance of the context when finished:
-
-```
-defer Context.CleanUp(c.Request); // You can call this code from custom middleware, for example.
+db.SetLogger(NewDebugLogger(appengine.NewContext(request)));
 ```
 
 Due to the common names of the packages, you may wish to alias them:
 
 ```
 import (
-  GAEBridgeContext "github.com/benguild/GAEBridge/context"
   GAEBridgeLog "github.com/benguild/GAEBridge/log"
 )
 ```
